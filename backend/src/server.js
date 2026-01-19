@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 
 import userRouter from "../src/routes/userRouter.js";
+import messageRouter from "../src/routes/messageRouter.js"
+
 import { dbConnection } from "./config/db.js";
 
 
@@ -17,6 +19,7 @@ app.use(express.json());
 
 
 app.use("/api/v1/", userRouter);
+app.use("/api/v1/", messageRouter);
 
 
 dbConnection().then(()=>{
