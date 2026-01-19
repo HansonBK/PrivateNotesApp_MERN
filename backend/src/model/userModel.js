@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
             trim:true
             
         },
-        password:{
+        passwordHash:{
             type:String,
             required:true
         }
@@ -39,6 +39,13 @@ const userSchema = new mongoose.Schema(
     },{timestamps:true}
 );
 
+userSchema.set("toJSON", {
+    transform: (doc,ret)=>{
+        delete ret.password;
+        return ret;
+    },
+
+})
 
 const User = mongoose.model("User", userSchema);
 export default User;

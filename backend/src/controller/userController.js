@@ -1,5 +1,58 @@
 import User from "../model/userModel.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 
+
+
+const signToken = (userId) => {
+    return jwt.sign(
+        {userId},
+        process.env.JWT_SECRET,
+        {expiresIn: process.env.JWT_EXPIRES_IN || "7d"}
+    );
+};
+
+
+export const register = async (req, res) =>{
+
+    try {
+        const {username, email, password, fullname} = req.body
+
+        if(!username || !email || !password || !fullname)
+            return res.status(400).json({msg:"Username, eamil, full Name and password are all required"})
+        
+        if(password.length < 6)
+            return res.status(400).json({ msg: "Password must be at least 6 characters" });
+
+        const existingUser = await User.findOne({$or: [{username}, {email}]});
+
+        if(existingUser) 
+            return res.status(409).json({msg:"Username or eamil already exists"});
+
+        const passwordHash = await bcrypt.hash(password,10);
+        const user = await User.create({username,fullname,email,passwordHash});
+
+        const toekn =signToken(user._id.toString());
+
+        return res.status(201).json({
+            toekn,
+            user:user.toJSON(),
+
+        });
+
+    } catch (error) {
+        console.log("register error:", error);
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+}
+
+
+
+
+
+// =============================================================================
+//           OLD METHODE HERE BEFORE AUTH (JUST FOR PRACTICE)
+//==============================================================================
 
 export const getUser = async (req,res) =>{
 
@@ -63,9 +116,9 @@ export const updateUser = async(request, response) =>{
 
     try {
 
-        const {username, fullname, email, password} = request.body;
+        const {username, fullname, email, passwordHash} = request.body;
 
-        const updatedUser = await User.findByIdAndUpdate(request.params.userId, {username, fullname, email, password}, {new:true, runValidators: true } );
+        const updatedUser = await User.findByIdAndUpdate(request.params.userId, {username, fullname, email, passwordHash}, {new:true, runValidators: true } );
 
         if(!updatedUser) return response.status(404).json({msg:"USER NOT FOUND !!"});
 
