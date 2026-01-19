@@ -1,6 +1,7 @@
 import express from "express";
 
-import {creatUser, deleteUserById, deleteUserByUsername, getUser, getUserById, register, updateUser} from "../controller/userController.js"
+import {creatUser, deleteUserById, deleteUserByUsername, getUser, getUserById, login, register, updateUser, me} from "../controller/userController.js"
+import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -8,14 +9,18 @@ const router = express.Router();
 
 router.post("/register", register);
 
+router.post("/login", login);
+
+router.get("/me", requireAuth , me)
+router.get("/user", getUser);
 
 
 
-
-
-//old Methods
+//======================================================
+//old Routes
+//======================================================
 /*
-    router.get("/user", getUser);
+    
 
     router.get("/user/:userId", getUserById);
 

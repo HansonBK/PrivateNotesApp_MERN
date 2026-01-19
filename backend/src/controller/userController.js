@@ -46,7 +46,46 @@ export const register = async (req, res) =>{
     }
 }
 
+export const login = async (req,res) =>{
 
+    try {
+        const {email, password, username} = req.body;
+        if((!email && !username) || !password) return res.status(400).json({msg:"Eamil or Username and Password are required"});
+
+        const user = await User.findOne({$or:[{username}, {email}]});
+
+        if(!user) return res.status(401).json({msg:"Ivalid credentioals"});
+
+        const ok = await bcrypt.compare(password,user.passwordHash);
+
+        if(!ok) return res.status(401).json({msg:"Invalid credentials"});
+
+        const token =signToken(user._id.toString());
+
+        return  res.status(200).json({token, user:user.toJSON(),});
+        
+
+    } catch (error) {
+
+         console.log("login error:", error);
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+}
+
+
+export const me =async (req,res)=>{
+
+    try {
+        const user = await User.findById(req.userId);
+        if(!user) return res.status(404).json({msg:"USER NOT FOUND"});
+
+        return res.status(200).json({user:user.toJSON()});
+
+    } catch (error) {
+        console.log("me error:", error);
+        return res.status(500).json({ msg: "Internal server error" });
+    }
+}
 
 
 
