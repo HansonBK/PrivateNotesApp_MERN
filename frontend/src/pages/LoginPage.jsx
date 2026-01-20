@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 
@@ -10,7 +10,15 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    
+    localStorage.removeItem("token");
+  }, []);
+
   const login = async (e) => {
+
+    
+  
     e.preventDefault();
 
     try {
@@ -23,7 +31,8 @@ const LoginPage = () => {
 
       localStorage.setItem("token", res.data.token);
       toast.success("Login successfully");
-      navigate("/me");
+
+      navigate("/home", {replace: true});
     } catch (error) {
       const msg =
         error?.response?.data?.msg ||
@@ -96,7 +105,7 @@ const LoginPage = () => {
                     type="button"
                     className="text-sm text-slate-500 hover:underline"
                   >
-                    Forgot? {/*later to implemnt this feature to rest password */}
+                    Forgot? 
                   </button>
                 </div>
                 <input
@@ -108,7 +117,7 @@ const LoginPage = () => {
                 />
               </div>
 
-              {/* Button */}
+            
               <button
                 type="submit"
                 disabled={loading}

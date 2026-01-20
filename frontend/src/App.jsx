@@ -7,7 +7,8 @@ import HomePage from "./pages/HomePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import Me from "./pages/Me.jsx";
-
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import CreatePage from "./pages/CreatePage.jsx";
 
 
 function App() {
@@ -17,10 +18,31 @@ function App() {
     <div >
       
      <Routes>       
-        <Route path="/" element= {<HomePage />}/>
+        
         <Route path="/register" element= {<RegisterPage />}/> 
-        <Route path="/login" element= {<LoginPage />}/>
-         <Route path="/Me" element= {<Me />}/>
+        <Route path="/" element= {<LoginPage />}/>
+
+        
+          <Route path="/home" element= {
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute> }
+          />
+
+           <Route path="/create" element= {
+            <ProtectedRoute>
+              <CreatePage  />
+            </ProtectedRoute> }
+          />
+
+          <Route path="/Me" element= {
+            <ProtectedRoute>
+              <Me />
+            </ProtectedRoute> }
+          />
+
+        
+         
              
       </Routes>
 
