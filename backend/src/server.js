@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors"
 
 import userRouter from "../src/routes/userRouter.js";
 import messageRouter from "../src/routes/messageRouter.js"
@@ -15,6 +16,10 @@ const app = express();
 const port = process.env.PORT;
 app.use(express.json());
 
+
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 
 
