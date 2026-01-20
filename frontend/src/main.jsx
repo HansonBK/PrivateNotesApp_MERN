@@ -11,6 +11,7 @@ createRoot(document.getElementById('root')).render(
     
       <div className="min-h-screen bg-gradient-to-r from-[#94BBE9] via-[#EEAECA] to-[#94BBE9] p-10">
         <BrowserRouter>
+        <Toaster />
           <App />
          </BrowserRouter>
       </div>
