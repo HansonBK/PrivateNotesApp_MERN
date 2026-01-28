@@ -60,13 +60,13 @@ const token = localStorage.getItem("token");
 
   return (
   <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl flex flex-col">
-    {/* soft background blobs */}
+    
     <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-slate-200/40 blur-3xl" />
     <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-slate-300/30 blur-3xl" />
 
-    {/* Content */}
+    
     <div className="relative flex flex-col flex-1">
-      {/* Title */}
+      
       {!isEditing ? (
         <h2 className="text-xl font-bold text-slate-900 leading-tight line-clamp-2">
           {message.title}
@@ -80,7 +80,7 @@ const token = localStorage.getItem("token");
         />
       )}
 
-      {/* Date */}
+      
       <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
         <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/70 px-3 py-1">
           <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
@@ -88,14 +88,14 @@ const token = localStorage.getItem("token");
         </span>
       </div>
 
-      {/* Body (flex-1 so it takes remaining space) */}
+     
       <div className="mt-4 flex-1">
         {!isEditing ? (
           <div className="relative h-full rounded-2xl border border-slate-100 bg-slate-50/70 p-4">
             <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line line-clamp-6">
               {message.messagebody}
             </p>
-            {/* bottom fade */}
+           
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 rounded-b-2xl bg-gradient-to-t from-slate-50/90 to-transparent" />
           </div>
         ) : (
@@ -109,7 +109,7 @@ const token = localStorage.getItem("token");
         )}
       </div>
 
-      {/* Actions (mt-auto pushes it to the bottom) */}
+      
       <div className="mt-auto pt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
         {!isEditing ? (
           <>
