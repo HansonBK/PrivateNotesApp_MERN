@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,7 +68,7 @@ const LoginPage = () => {
             </div>
 
             <p className="text-slate-400 text-sm">
-              &copy; 2024 PrivateNotes. All rights reserved.
+              &copy; PrivateNotes.
             </p>
           </div>
 
@@ -115,6 +116,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-400 outline-none"
                 />
+
               </div>
 
             
